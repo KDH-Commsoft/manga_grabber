@@ -37,8 +37,8 @@ MANGA_URLS = [
 UPDATE_THRESHOLD_MINUTES = 60
 
 # Toggle notification methods
-NOTIFY_TEAMS = True   # Microsoft Teams via Incoming Webhook
-NOTIFY_EMAIL = False  # Email via SMTP (e.g. Gmail)
+NOTIFY_TEAMS = False  # Microsoft Teams via Incoming Webhook
+NOTIFY_EMAIL = True   # Email via SMTP (e.g. Gmail)
 
 # Delay between page requests (seconds) — be polite to servers
 REQUEST_DELAY = 3
