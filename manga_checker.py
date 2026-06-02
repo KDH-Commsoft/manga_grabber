@@ -22,9 +22,12 @@ import time
 #  MANGA URLS TO MONITOR — add as many as you like
 # ─────────────────────────────────────────────
 MANGA_URLS = [
-    "https://kaliscan.com/manga/solo-bug-player",
-    # "https://kaliscan.com/manga/another-manga-slug",
-    # Add more URLs here
+    "https://kaliscan.com/manga/26690-solo-max-level-newbie",
+    "https://kaliscan.com/manga/47759-catastrophic-necromancer",
+    "https://kaliscan.com/manga/53594-regressing-with-the-kings-power",
+    "https://kaliscan.com/manga/5995-the-great-mage-returns-after-4000-years",
+    "https://kaliscan.com/manga/19897-return-of-the-frozen-player",
+    "https://kaliscan.com/manga/39062-return-of-the-sss-class-ranker",
 ]
 
 # ─────────────────────────────────────────────
