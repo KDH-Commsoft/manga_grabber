@@ -1,0 +1,39 @@
+name: Manga Update Checker
+
+on:
+  # Runs every 45 minutes (GitHub cron minimum is 5 min;
+  # '*/45' isn't valid cron so we use 0,30 for every 30 min
+  # — adjust to '0 * * * *' for every hour if preferred)
+  schedule:
+    - cron: "0,30 * * * *"   # Every 30 minutes (closest to 45 min available)
+
+  # Also allows you to trigger a manual run from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  check-manga-updates:
+    name: Check for New Chapters
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run manga checker
+        env:
+          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          EMAIL_FROM:        ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO:          ${{ secrets.EMAIL_TO }}
+          EMAIL_PASSWORD:    ${{ secrets.EMAIL_PASSWORD }}
+          SMTP_SERVER:       ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT:         ${{ secrets.SMTP_PORT }}
+        run: python manga_checker.py
