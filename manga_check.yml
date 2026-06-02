@@ -1,13 +1,11 @@
 name: Manga Update Checker
 
 on:
-  # Runs every 45 minutes (GitHub cron minimum is 5 min;
-  # '*/45' isn't valid cron so we use 0,30 for every 30 min
-  # — adjust to '0 * * * *' for every hour if preferred)
+  # Runs every 30 minutes (closest GitHub cron supports to 45 min)
   schedule:
-    - cron: "0,30 * * * *"   # Every 30 minutes (closest to 45 min available)
+    - cron: "0,30 * * * *"
 
-  # Also allows you to trigger a manual run from the Actions tab
+  # Allows manual trigger from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -30,10 +28,14 @@ jobs:
 
       - name: Run manga checker
         env:
-          TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
-          EMAIL_FROM:        ${{ secrets.EMAIL_FROM }}
-          EMAIL_TO:          ${{ secrets.EMAIL_TO }}
-          EMAIL_PASSWORD:    ${{ secrets.EMAIL_PASSWORD }}
-          SMTP_SERVER:       ${{ secrets.SMTP_SERVER }}
-          SMTP_PORT:         ${{ secrets.SMTP_PORT }}
+          # Required — Gmail address sending the notification
+          EMAIL_FROM:     ${{ secrets.EMAIL_FROM }}
+          # Required — where notifications are delivered (can be same address)
+          EMAIL_TO:       ${{ secrets.EMAIL_TO }}
+          # Required — Gmail App Password (NOT your normal Gmail password)
+          # Generate one at: https://myaccount.google.com/apppasswords
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          # Optional — only needed if not using Gmail
+          SMTP_SERVER:    ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT:      ${{ secrets.SMTP_PORT }}
         run: python manga_checker.py
